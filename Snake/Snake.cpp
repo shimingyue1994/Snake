@@ -783,7 +783,46 @@ void choose()
 
 }
 
-
+/*
+*   游戏说明
+*/
+void explation()
+{
+	int i, j = 1;
+	system("cls");
+	color(13);
+	gotoxy(44, 3);
+	printf("游戏说明");
+	color(2);
+	for (i = 6; i <= 22; i++)   //输出上下边框===
+	{
+		for (j = 20; j <= 75; j++)  //输出左右边框||
+		{
+			gotoxy(j, i);
+			if (i == 6 || i == 22) printf("=");
+			else if (j == 20 || j == 75) printf("||");
+		}
+	}
+	color(3);
+	gotoxy(30, 8);
+	printf("tip1: 不能穿墙，不能咬到自己");
+	color(10);
+	gotoxy(30, 11);
+	printf("tip2: 用↑.↓.←.→分别控制蛇的移动");
+	color(14);
+	gotoxy(30, 14);
+	printf("tip3: F1 为加速，F2 为减速");
+	color(11);
+	gotoxy(30, 17);
+	printf("tip4: 按空格键暂停游戏，再按空格键继续");
+	color(4);
+	gotoxy(30, 20);
+	printf("tip5: ESC ：退出游戏.space：暂停游戏");
+	_getch();                //按任意键返回主界面
+	system("cls");
+	printsnake();
+	welcometogame();
+}
 /**
  * 开始界面
  */
@@ -821,19 +860,21 @@ void welcometogame()
 	color(3);
 	printf("请选择[1 2 3]:[ ]\b\b");        //\b为退格，使得光标处于[]中间
 	color(14);
-	scanf_s("%d", &n);    		//输入选项
+	scanf_s("%d", &n);    		//输入选项 ,等待输入后才执行后面的代码
 	switch (n)
 	{
 	case 1:
 		system("cls");
-		createMap();
-		initsnake();
-		createfood();
+		createMap();        //创建地图
+		initsnake();        //初始化蛇身
+		createfood();       //创建食物
+		keyboardControl();	//按键控制
 		break;
 	case 2:
+		explation();      	//游戏说明函数
 		break;
 	case 3:
-		exit(0);
+		exit(0);     		//退出游戏
 		break;
 	default:				//输入非1~3之间的选项
 		color(12);
@@ -841,7 +882,7 @@ void welcometogame()
 		printf("请输入1~3之间的数!");
 		_getch();			//输入任意键
 		system("cls");		//清屏
-		printsnake();//重新绘制开始界面
+		printsnake();
 		welcometogame();
 	}
 }
